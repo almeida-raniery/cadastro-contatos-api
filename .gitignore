@@ -9,4 +9,3 @@ yarn.lock
 .yarn-integrity
 .env
 .env.test
-docker-compose.yml
