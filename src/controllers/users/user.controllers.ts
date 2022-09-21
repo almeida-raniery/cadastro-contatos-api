@@ -4,7 +4,7 @@ export async function createUser(req:Request, res:Response):Promise<Response> {
     return res.status(200).json({message: "User created successfully"})
 }
 
-export async function listUsers(req:Request, res:Response):Promise<Response> {
+export async function getUser(req:Request, res:Response):Promise<Response> {
     return res.status(200).json({name: "Iser"})
 }
 

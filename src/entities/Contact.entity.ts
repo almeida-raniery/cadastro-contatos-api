@@ -1,4 +1,5 @@
 import {
+  BaseEntity,
   Column,
   CreateDateColumn,
   Entity,
@@ -9,7 +10,7 @@ import {
 import User from "./User.entity";
 
 @Entity()
-export default class Contact {
+export default class Contact extends BaseEntity {
   @PrimaryColumn("uuid")
   readonly id: string;
   @Column({ nullable: true, length: 20 })

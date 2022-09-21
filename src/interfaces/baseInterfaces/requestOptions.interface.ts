@@ -1,1 +1,1 @@
-interface IRequestOptions {}
+interface IRequestOptions{}

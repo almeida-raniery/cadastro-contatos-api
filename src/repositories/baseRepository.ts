@@ -1,14 +1,14 @@
-import { BaseEntity, EntityTarget, Repository, UpdateResult } from "typeorm";
+import { BaseEntity, DeepPartial, EntityTarget, Repository, UpdateResult } from "typeorm";
 import AppDataSource from "../data-source";
 
-class BaseRepository {
-  repo: Repository<BaseEntity>;
+class BaseRepository<Entity extends BaseEntity> {
+  repo: Repository<Entity>;
 
-  constructor(entityClass: EntityTarget<BaseEntity>) {
-    this.updateRepo(entityClass);
+  constructor(entityClass: EntityTarget<Entity>) {
+    this.getRepo(entityClass);
   }
 
-  updateRepo(entityClass: EntityTarget<BaseEntity>): Repository<BaseEntity> {
+  getRepo(entityClass: EntityTarget<Entity>): Repository<Entity> {
     const newRepo = AppDataSource.getRepository(entityClass);
 
     this.repo = newRepo;
@@ -16,7 +16,7 @@ class BaseRepository {
     return newRepo;
   }
 
-  async create(data: IRequestData): Promise<BaseEntity> {
+  async create(data: DeepPartial<Entity>): Promise<Entity> {
     const entity = this.repo.create(data);
 
     await this.repo.save(entity);
@@ -24,27 +24,34 @@ class BaseRepository {
     return entity;
   }
 
-  async find(options: IRequestOptions): Promise<BaseEntity[]> {
+  async find(options: IRequestOptions): Promise<Entity[]> {
     const entity = await this.repo.find(options);
 
     return entity;
   }
 
-  async findOne(options: IRequestOptions): Promise<BaseEntity | null> {
+  async listAll(): Promise<Entity[]> {
+    return await this.repo.find()
+  }
+
+  async findOne(options: IRequestOptions): Promise<Entity | null> {
     const entity = await this.repo.findOne(options);
 
     return entity;
   }
 
-  async update(options: IRequestOptions, data: IRequestData): Promise<UpdateResult> {
+  async update(
+    options: IRequestOptions,
+    data: IRequestData
+  ): Promise<UpdateResult> {
     const result = await this.repo.update(options, data);
 
     return result;
   }
 
   async delete(options: IRequestOptions): Promise<void> {
-    await this.repo.delete(options)
+    await this.repo.delete(options);
   }
 }
 
-export default BaseRepository
+export default BaseRepository;

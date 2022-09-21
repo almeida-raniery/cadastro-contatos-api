@@ -1,15 +1,18 @@
-import { BaseEntity, Repository } from "typeorm";
 import Contact from "../entities/Contact.entity";
 import BaseRepository from "./baseRepository";
 
-class ContactRepository extends BaseRepository {
-    constructor(){
-        super(Contact)
-    }
+class ContactRepository extends BaseRepository<Contact> {
+  constructor() {
+    super(Contact);
+  }
 
-    updateRepo(): Repository<BaseEntity> {
-        return super.updateRepo(Contact)
-    }
+  async listByUserId(userId:string):Promise<Contact[]>{
+    return await this.find({userId})
+  }
+
+  async getUserProfile(userId:string): Promise<Contact | null>{
+    return await this.findOne({userId, is_user:true})
+  }
 }
 
-export default ContactRepository
+export default ContactRepository;

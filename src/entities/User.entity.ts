@@ -1,4 +1,5 @@
 import {
+  BaseEntity,
   Column,
   CreateDateColumn,
   Entity,
@@ -9,7 +10,7 @@ import {
 import Contact from "./Contact.entity";
 
 @Entity()
-export default class User {
+export default class User extends BaseEntity{
   @PrimaryColumn("uuid")
   readonly id: string;
   @Column()
@@ -29,7 +30,7 @@ export default class User {
     onUpdate: "CURRENT_TIMESTAMP(6)",
   })
   @OneToMany(() => Contact, contact => contact.user, {eager:true})
-  contacts: Contact;
+  contacts: Contact[];
 
   public updated_at: Date;
 }

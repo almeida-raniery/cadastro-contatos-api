@@ -8,6 +8,10 @@ export async function listContacts(req:Request, res:Response):Promise<Response> 
     return res.status(200).json({name: "Contract"})
 }
 
+export async function getContact(req:Request, res:Response):Promise<Response> {
+    return res.status(200).json({name: "Contract"})
+}
+
 export async function updadteContact(req:Request, res:Response):Promise<Response> {
     return res.status(200).json({name: "Contact"})
 }

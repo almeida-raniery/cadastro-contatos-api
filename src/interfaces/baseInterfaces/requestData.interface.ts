@@ -1,1 +1,2 @@
-interface IRequestData {}
+interface IRequestData{}
+
