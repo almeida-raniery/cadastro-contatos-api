@@ -1,3 +1,4 @@
+import { Exclude } from "class-transformer";
 import {
   BaseEntity,
   Column,
@@ -24,6 +25,7 @@ export default class Contact extends BaseEntity {
   @Column({ length: 9 })
   phoneNumber: string;
   @Column({ default: false })
+  @Exclude()
   is_user: boolean;
   @CreateDateColumn({
     type: "timestamp",

@@ -1,21 +1,15 @@
+import { instanceToPlain } from "class-transformer";
+import { UserResponse } from "../../@types/app";
 import User from "../../entities/User.entity";
-import { IUserResponse } from "../../interfaces/users/userResponse.interface";
 import UserRepository from "../../repositories/user.repository";
 
-async function getUserService(userId: string): Promise<IUserResponse> {
+async function getUserService(userId: string): Promise<UserResponse> {
   const userRepository = new UserRepository();
-  const { id, username, email, created_at, updated_at } =
-    (await userRepository.findOne({ id: userId })) as User;
+  const user           = (await userRepository.findOne({ id: userId })) as User;
 
-  const userResponse: IUserResponse = {
-    id,
-    username,
-    email,
-    created_at,
-    updated_at,
-  };
+  const userData: UserResponse = instanceToPlain(user);
 
-  return userResponse;
+  return userData;
 }
 
 export default getUserService;

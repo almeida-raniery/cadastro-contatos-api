@@ -1,3 +1,4 @@
+import { Exclude } from "class-transformer";
 import {
   BaseEntity,
   Column,
@@ -14,6 +15,7 @@ export default class User extends BaseEntity{
   @PrimaryGeneratedColumn("uuid")
   readonly id: string;
   @Column()
+  @Exclude()
   password: string;
   @Column({ length: 32, unique: true })
   username: string;

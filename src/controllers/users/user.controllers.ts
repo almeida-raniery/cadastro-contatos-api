@@ -17,7 +17,7 @@ export async function getUser(req:Request, res:Response):Promise<Response> {
 }
 
 export async function updateUser(req:Request, res:Response):Promise<Response> {
-    const responseData = await updateUserService(req.params.id, req.body.data)
+    const responseData = await updateUserService(req.params.id, req.body)
 
     return res.status(200).json(responseData)
 }
@@ -25,5 +25,5 @@ export async function updateUser(req:Request, res:Response):Promise<Response> {
 export async function deleteUser(req:Request, res:Response):Promise<Response> {
     await deleteUserService(req.params.id)
 
-    return res.status(204)
+    return res.status(204).send({})
 }
