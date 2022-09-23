@@ -4,14 +4,14 @@ import {
   CreateDateColumn,
   Entity,
   ManyToOne,
-  PrimaryColumn,
+  PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
 import User from "./User.entity";
 
 @Entity()
 export default class Contact extends BaseEntity {
-  @PrimaryColumn("uuid")
+  @PrimaryGeneratedColumn("uuid")
   readonly id: string;
   @Column({ nullable: true, length: 20 })
   nickname: string;

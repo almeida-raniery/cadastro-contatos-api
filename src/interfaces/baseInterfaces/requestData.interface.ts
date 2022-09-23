@@ -1,2 +1,2 @@
-interface IRequestData{}
+export interface IRequestData{}
 

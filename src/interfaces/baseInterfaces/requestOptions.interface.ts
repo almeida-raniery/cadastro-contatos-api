@@ -1,1 +1,1 @@
-interface IRequestOptions{}
+export interface IRequestOptions{}

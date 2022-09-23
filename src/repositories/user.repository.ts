@@ -1,5 +1,7 @@
 import { hash } from "bcrypt";
 import User from "../entities/User.entity";
+import { ICredentials } from "../interfaces/sessions/loginCredentials.interface";
+import { INewUserData } from "../interfaces/users/userRequest.interface";
 import BaseRepository from "./baseRepository";
 
 class UserRepository extends BaseRepository<User> {

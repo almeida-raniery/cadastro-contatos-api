@@ -1,3 +1,5 @@
+import { IUserRequestData } from "../../interfaces/users/userRequest.interface";
+import { IUserResponse } from "../../interfaces/users/userResponse.interface";
 import UserRepository from "../../repositories/user.repository";
 
 async function createUserService(data:IUserRequestData): Promise<IUserResponse> {
@@ -13,3 +15,5 @@ async function createUserService(data:IUserRequestData): Promise<IUserResponse> 
 
     return responseData
 }
+
+export default createUserService

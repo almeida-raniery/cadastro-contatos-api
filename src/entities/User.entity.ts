@@ -4,14 +4,14 @@ import {
   CreateDateColumn,
   Entity,
   OneToMany,
-  PrimaryColumn,
+  PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from "typeorm";
 import Contact from "./Contact.entity";
 
 @Entity()
 export default class User extends BaseEntity{
-  @PrimaryColumn("uuid")
+  @PrimaryGeneratedColumn("uuid")
   readonly id: string;
   @Column()
   password: string;
@@ -29,8 +29,7 @@ export default class User extends BaseEntity{
     default: () => "CURRENT_TIMESTAMP(6)",
     onUpdate: "CURRENT_TIMESTAMP(6)",
   })
+  updated_at: Date;
   @OneToMany(() => Contact, contact => contact.user, {eager:true})
   contacts: Contact[];
-
-  public updated_at: Date;
 }

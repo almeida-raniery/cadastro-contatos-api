@@ -3,5 +3,7 @@ import UserRepository from "../../repositories/user.repository"
 
 async function deleteUserService(userId:string){
     const userRepository = new UserRepository()
-    await userRepository.delete({userId})
+    await userRepository.delete({id: userId})
 }
+
+export default deleteUserService

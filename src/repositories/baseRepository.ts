@@ -1,5 +1,7 @@
-import { BaseEntity, DeepPartial, EntityTarget, Repository, UpdateResult } from "typeorm";
+import { BaseEntity, DeepPartial, EntityTarget, FindOneOptions, FindOptionsWhere, Repository, UpdateResult } from "typeorm";
 import AppDataSource from "../data-source";
+import { IRequestData } from "../interfaces/baseInterfaces/requestData.interface";
+import { IRequestOptions } from "../interfaces/baseInterfaces/requestOptions.interface";
 
 class BaseRepository<Entity extends BaseEntity> {
   repo: Repository<Entity>;
@@ -35,13 +37,13 @@ class BaseRepository<Entity extends BaseEntity> {
   }
 
   async findOne(options: IRequestOptions): Promise<Entity | null> {
-    const entity = await this.repo.findOne(options);
+    const entity = await this.repo.findOne({where:options});
 
     return entity;
   }
 
   async update(
-    options: IRequestOptions,
+    options: FindOptionsWhere<Entity>,
     data: IRequestData
   ): Promise<UpdateResult> {
     const result = await this.repo.update(options, data);
@@ -49,7 +51,7 @@ class BaseRepository<Entity extends BaseEntity> {
     return result;
   }
 
-  async delete(options: IRequestOptions): Promise<void> {
+  async delete(options: FindOptionsWhere<Entity>): Promise<void> {
     await this.repo.delete(options);
   }
 }
