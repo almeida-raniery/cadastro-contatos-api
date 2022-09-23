@@ -1,21 +1,36 @@
 import { Request, Response } from "express";
+import createContactService from "../../services/contacts/createContact.service";
+import deleteContactService from "../../services/contacts/deleteContact.service";
+import getContactService from "../../services/contacts/getContact.service";
+import listContactsService from "../../services/contacts/listContacts.service";
+import updateContactService from "../../services/contacts/updateContact.service";
 
 export async function createContact(req:Request, res:Response):Promise<Response> {
-    return res.status(200).json({message: "Contact created successfully"})
-}
+    const responseData = await createContactService(req.body)
 
-export async function listContacts(req:Request, res:Response):Promise<Response> {
-    return res.status(200).json({name: "Contract"})
+    return res.status(201).json(responseData)
 }
 
 export async function getContact(req:Request, res:Response):Promise<Response> {
-    return res.status(200).json({name: "Contract"})
+    const responseData = await getContactService(req.params.id)
+
+    return res.status(200).json(responseData)
 }
 
-export async function updadteContact(req:Request, res:Response):Promise<Response> {
-    return res.status(200).json({name: "Contact"})
+export async function listContacts(req:Request, res:Response):Promise<Response> {
+    const responseData = await listContactsService(req.params.id)
+
+    return res.status(200).json(responseData)
+}
+
+export async function updateContact(req:Request, res:Response):Promise<Response> {
+    const responseData = await updateContactService(req.params.id, req.body)
+
+    return res.status(200).json(responseData)
 }
 
 export async function deleteContact(req:Request, res:Response):Promise<Response> {
-    return res.status(200).json({message: "Contact deleted successfully"})
+    await deleteContactService(req.params.id)
+
+    return res.status(204).send({})
 }
