@@ -27,7 +27,7 @@ class BaseRepository<Entity extends BaseEntity> {
   }
 
   async find(options: IRequestOptions): Promise<Entity[]> {
-    const entity = await this.repo.find(options);
+    const entity = await this.repo.find({where: options});
 
     return entity;
   }

@@ -6,7 +6,7 @@ import listContactsService from "../../services/contacts/listContacts.service";
 import updateContactService from "../../services/contacts/updateContact.service";
 
 export async function createContact(req:Request, res:Response):Promise<Response> {
-    const responseData = await createContactService(req.body)
+    const responseData = await createContactService(req.body, req.user.id)
 
     return res.status(201).json(responseData)
 }
@@ -18,7 +18,7 @@ export async function getContact(req:Request, res:Response):Promise<Response> {
 }
 
 export async function listContacts(req:Request, res:Response):Promise<Response> {
-    const responseData = await listContactsService(req.params.id)
+    const responseData = await listContactsService(req.user.id)
 
     return res.status(200).json(responseData)
 }

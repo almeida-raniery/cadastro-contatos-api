@@ -14,13 +14,11 @@ async function loginService(userData: IUserCredentials, credentials: ILoginReque
 
   if (!passwordMatch) throw new Error("Wrong password");
 
-  const token = jwt.sign(
-    {
-      sub: userData.id,
-    },
+  const token = jwt.sign({},
     process.env.SECRET_KEY!,
     {
       expiresIn: "24h",
+      subject: userData.id
     }
   );
 

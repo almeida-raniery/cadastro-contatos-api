@@ -32,6 +32,6 @@ export default class User extends BaseEntity{
     onUpdate: "CURRENT_TIMESTAMP(6)",
   })
   updated_at: Date;
-  @OneToMany(() => Contact, contact => contact.user, {eager:true})
+  @OneToMany(() => Contact, contact => contact.user)
   contacts: Contact[];
 }

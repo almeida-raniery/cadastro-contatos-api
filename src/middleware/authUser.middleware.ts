@@ -1,22 +1,25 @@
 import jwt from "jsonwebtoken"
 import { NextFunction, Request, Response } from "express";
+import { AppError } from "../errors/AppError";
 
 function authUSer(req: Request, res: Response, next:NextFunction) {
-    const token = req.headers.authorization?.split(" ")[1]
+  if(!req.headers.authorization){
+    throw new AppError("Missing authentication token", 403)
+  }
+  
+  const token = req.headers.authorization?.split(" ")[1]
 
-    jwt.verify(token!, process.env.SECRET_KEY!, (error: any, decoded: any)=>{
-        if (error) {
-            return res.status(401).json({
-              message: "Invalid token",
-            });
-          }
-        
-        req.user = {
-            id: decoded.id
-        };
+  jwt.verify(token!, process.env.SECRET_KEY!, (error: any, decoded: any)=>{
+      if (error) {
+          throw new AppError("Invalid token", 403)
+        }
+      
+      req.user = {
+          id: decoded.sub
+      };
 
-        next()
-    })
+      next()
+  })
 }
 
 export default authUSer
