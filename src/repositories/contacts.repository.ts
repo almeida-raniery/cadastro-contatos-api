@@ -39,7 +39,7 @@ class ContactRepository extends BaseRepository<Contact> {
       .where("contact.id = :id", {id: contactId})
       .getRawOne()
 
-    return contact!.userId;
+    return contact?.userId;
   }
 }
 
