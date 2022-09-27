@@ -18,7 +18,6 @@ async function createUserService(data:IUserRequestData): Promise<UserResponse> {
             phoneNumber: data.contactInfo.phoneNumber,
             is_user: true
         }
-
         await createContactService(contactData, user.id)
     } 
 
