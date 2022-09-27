@@ -2,6 +2,7 @@ import "reflect-metadata";
 import "express-async-errors";
 import "dotenv/config";
 
+import cors from "cors";
 import express from "express";
 import userRoute from "./routes/users/user.routes";
 import contactRoute from "./routes/contacts/contact.routes";
@@ -10,6 +11,7 @@ import handleAppError from "./middleware/handleErrors.middleware";
 
 const app = express();
 app.use(express.json());
+app.use(cors())
 
 app.use("/users", userRoute)
 app.use("/contacts", contactRoute)
